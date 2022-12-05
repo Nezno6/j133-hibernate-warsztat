@@ -21,7 +21,11 @@ public class Main {
 
                 new KomendaUsunPojazd(),
                 new KomendaUsunMechanik(),
-                new KomendaUsunSerwisPojazdu()
+                new KomendaUsunSerwisPojazdu(),
+
+                new KomendaAktualizujMechanik(),
+                new KomendaAktualizujPojazd(),
+                new KomendaZakonczSerwisPojazdu()
         );
         System.out.println("Lista dostepnych komend:");
         listaKomend.forEach(komenda -> System.out.println(komenda.getKomenda()));
@@ -33,5 +37,5 @@ public class Main {
                 .stream()
                 .filter(dostepnaKomenda -> dostepnaKomenda.getKomenda().equalsIgnoreCase(komenda))
                 .findFirst().ifPresent(Komenda::obsluga);
-        }
+    }
 }
