@@ -3,7 +3,6 @@ package pl.sda.j133.hibernate.warsztat;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,4 +60,36 @@ public class DataAccessObject<T> {
         }
         return false;
     }
+
+    public void update(Class<T> tClass, Long id, T encjaAktualizujaca) {
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            T encja = session.get(tClass, id);
+
+            if (encja == null) {
+                System.err.println("Nie znaleziono rekordu");
+            }
+
+            session.merge(encjaAktualizujaca);
+
+            transaction.commit();
+        } catch (Exception e) {
+            System.err.println("Blad bazy" + e);
+        }
+    }
+
+    public boolean exists(Class<T> tClass, Long id) {
+        try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
+            T encja = session.get(tClass, id);
+
+            if (encja == null) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.err.println("Blad bazy" + e);
+        }
+        return false;
+    }
+
 }
