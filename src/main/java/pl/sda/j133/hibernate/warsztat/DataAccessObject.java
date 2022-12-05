@@ -79,17 +79,17 @@ public class DataAccessObject<T> {
         }
     }
 
-    public boolean exists(Class<T> tClass, Long id) {
+    public boolean notExists(Class<T> tClass, Long id) {
         try (Session session = HibernateUtil.INSTANCE.getSessionFactory().openSession()) {
             T encja = session.get(tClass, id);
 
             if (encja == null) {
-                return true;
+                return false;
             }
         } catch (Exception e) {
             System.err.println("Blad bazy" + e);
         }
-        return false;
+        return true;
     }
 
 }

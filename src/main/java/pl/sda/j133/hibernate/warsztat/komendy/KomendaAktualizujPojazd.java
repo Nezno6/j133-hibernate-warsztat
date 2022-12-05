@@ -22,7 +22,7 @@ public class KomendaAktualizujPojazd implements Komenda {
         String idString = Komenda.scanner.nextLine();
         Long id = Long.parseLong(idString);
 
-        if (!dataAccessObject.exists(Pojazd.class, id)) {
+        if (dataAccessObject.notExists(Pojazd.class, id)) {
             System.err.println("Błąd, pojazd o takim id nie istnieje!");
             return;
         }

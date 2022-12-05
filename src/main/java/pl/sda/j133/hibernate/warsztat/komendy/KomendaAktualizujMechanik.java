@@ -21,7 +21,7 @@ public class KomendaAktualizujMechanik implements Komenda {
         String idString = Komenda.scanner.nextLine();
         Long id = Long.parseLong(idString);
 
-        if (!dataAccessObject.exists(Mechanik.class, id)) {
+        if (dataAccessObject.notExists(Mechanik.class, id)) {
             System.err.println("Błąd, mechanik o takim id nie istnieje!");
             return;
         }
